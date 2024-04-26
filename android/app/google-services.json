@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "427540188324",
+    "project_id": "amanah-app-56130",
+    "storage_bucket": "amanah-app-56130.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427540188324:android:e38fa9c5d52afe7b9c2a31",
+        "android_client_info": {
+          "package_name": "com.example.amanah"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtKHAVcDddON3U5o5kR_knyGludftnhdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
