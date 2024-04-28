@@ -3,6 +3,7 @@
 class PostModel {
   String postId;
   String userId;
+  String userToken;
   String weight;
   String description;
   String currentLocation;
@@ -22,6 +23,7 @@ class PostModel {
   String? others;
   PostModel(
       {required this.postId,
+     required this.userToken,
       required this.weight,
       required this.userName,
       required this.userPhoto,
@@ -45,8 +47,9 @@ class PostModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'postId': postId,
+      'userToken' :userToken,
       'userId': userId,
-      "weight" : weight,
+      "weight": weight,
       'description': description,
       'currentLocation': currentLocation,
       'destination': destination,
@@ -71,6 +74,7 @@ class PostModel {
       postId: map['postId'] as String,
       userId: map['userId'] as String,
       weight: map['weight'] as String,
+      userToken: map['userToken'] as String,
       userName: map['userName'] as String,
       userPhoto: map['userPhoto'] as String,
       description: map['description'] as String,

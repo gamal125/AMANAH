@@ -21,7 +21,7 @@ class HeaderWidget extends StatelessWidget {
           placeholder: " ",
           controller: controller,
           validator: (validator) {
-            return "f";
+            return null;
           })
     ]);
   }

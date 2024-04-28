@@ -4,6 +4,7 @@ import 'package:amanah/core/utils/functions/functions.dart';
 import 'package:amanah/core/utils/widgets/dialog.dart';
 import 'package:amanah/features/auth/application/signup_cubit/signup_states.dart';
 import 'package:amanah/features/auth/data/models/user_model.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -66,6 +67,7 @@ class SignupCubit extends Cubit<SignupStates> {
 
 //create user doc in firestore
   Future<UserModel> createUser() async {
+    final userToken = await FirebaseMessaging.instance.getToken();
     final UserModel userModel = UserModel(
         userId: userId!,
         firstName: firstNameController.text,
@@ -76,7 +78,8 @@ class SignupCubit extends Cubit<SignupStates> {
         password: passController.text,
         country: countryController.text,
         idImage: idImage,
-        personalImage: personalImage);
+        personalImage: personalImage,
+        userToken: userToken!);
     firestore
         .collection("users")
         .doc(userModel.userId)
@@ -86,10 +89,9 @@ class SignupCubit extends Cubit<SignupStates> {
       storeDataLocally(userModel);
     }).catchError((error) {
       emit(SignupErrorState(error.toString()));
-     throw  CustomException("Error creating user document");
+      throw CustomException("Error creating user document");
     });
-          return userModel;
-
+    return userModel;
   }
 
 //control pass visibility
@@ -127,7 +129,7 @@ class SignupCubit extends Cubit<SignupStates> {
     emit(PickingImageSuccessState());
     emit(UploadImagesLoadingState());
     final String imageUrl = await storeFileToStorage(
-        isPassport ? "passportImage/$userId/" : "profileImage/$userId/",
+        isPassport ? "passportImage/$userId/" : "personalImage/$userId/",
         imageFile!);
     if (isPassport == true) {
       idImage = imageUrl;

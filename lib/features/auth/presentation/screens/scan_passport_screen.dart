@@ -110,24 +110,27 @@ class ScanPassportScreen extends StatelessWidget {
                           fallbackBuilder: (BuildContext context) =>
                               const LoadingWidget(),
                           widgetBuilder: (context) {
-                            return CustomButton(
-                                text: "Continue",
-                                onPressed: () {
-                                  if (signupCubit.idImage == "") {
-                                    ShowDialog.show(
-                                        context, "Upload ID Photo", " ");
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                BlocProvider.value(
-                                                    value: signupCubit,
-                                                    child: ProfilePhotoScreen(
-                                                        signupCubit:
-                                                            signupCubit))));
-                                  }
-                                });
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 18.0),
+                              child: CustomButton(
+                                  text: "Continue",
+                                  onPressed: () {
+                                    if (signupCubit.idImage == "") {
+                                      ShowDialog.show(
+                                          context, "Upload ID Photo", " ");
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BlocProvider.value(
+                                                      value: signupCubit,
+                                                      child: ProfilePhotoScreen(
+                                                          signupCubit:
+                                                              signupCubit))));
+                                    }
+                                  }),
+                            );
                           })
                     ],
                   );

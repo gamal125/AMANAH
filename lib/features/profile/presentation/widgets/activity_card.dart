@@ -2,25 +2,42 @@ import 'package:amanah/core/utils/colors/colors.dart';
 import 'package:amanah/core/utils/widgets/txt_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+
+import '../../../request/data/models/request_model.dart';
 
 class ActivityCard extends StatelessWidget {
-  const ActivityCard({super.key});
+  final RequestModel requestModel;
+  const ActivityCard({required this.requestModel, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String dayFormat = DateFormat('EEEE').format(requestModel.date);
+    final String date =
+        "$dayFormat  ${requestModel.date.day}/${requestModel.date.month}/${requestModel.date.year}";
+  
     return Padding(
       padding: const EdgeInsets.only(bottom: 26, left: 12, right: 42),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const TxtStyle("Friday 2-2-2222", 18, color: darkGrey),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TxtStyle(date, 14, color: darkGrey),
+            TxtStyle("Status: ${requestModel.status}", 14, color: primary),
+          ],
+        ),
         const Divider(),
-        const Row(
+        Row(
           children: [
             CircleAvatar(
-                minRadius: 20, maxRadius: 20, backgroundColor: primary),
+                minRadius: 20,
+                maxRadius: 20,
+                backgroundImage: NetworkImage(requestModel.travellerPhoto)),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TxtStyle("  Rashed", 14, fontWeight: FontWeight.bold),
+                TxtStyle("  ${requestModel.travellerName}", 14,
+                    fontWeight: FontWeight.bold),
               ],
             ),
           ],
@@ -28,20 +45,21 @@ class ActivityCard extends StatelessWidget {
         Row(
           children: [
             SizedBox(width: 45.w),
-            const TxtStyle("  jordan", 14, fontWeight: FontWeight.bold),
+            TxtStyle("  ${requestModel.from}", 14, fontWeight: FontWeight.bold),
             const Icon(Icons.arrow_forward, color: primary),
-            const TxtStyle("tripoli", 14, fontWeight: FontWeight.bold),
+            TxtStyle("${requestModel.to}", 14, fontWeight: FontWeight.bold),
           ],
         ),
         Row(
           children: [
             SizedBox(width: 45.w),
             const Icon(Icons.circle, color: primary, size: 12),
-            const TxtStyle(" Food", 13, fontWeight: FontWeight.bold),
+            TxtStyle(" ${requestModel.recommendedItemsToShip}", 13,
+                fontWeight: FontWeight.bold),
             const Spacer(),
-            const Align(
+            Align(
               alignment: Alignment.bottomRight,
-              child:  TxtStyle("219\$", 14,
+              child: TxtStyle("${requestModel.itemPrice}\$", 14,
                   fontWeight: FontWeight.bold, color: secondary),
             ),
           ],
