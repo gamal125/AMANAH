@@ -67,12 +67,12 @@ class CustomTextField extends StatelessWidget {
 
   final IconData suffixIcon;
 
-  final FormFieldValidator<String> validator;
+  final FormFieldValidator<String>? validator;
 
   const CustomTextField({
     required this.placeholder,
     required this.controller,
-    required this.validator,
+    this.validator,
     this.readOnly = false,
     this.isDate = false,
     this.suffixIcon = Icons.visibility_outlined,
@@ -96,7 +96,7 @@ class CustomTextField extends StatelessWidget {
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: SizedBox(
-        height: 55.h,
+        // height: 55.h,
         width: isSearch
             ? 281.w
             : isDate
@@ -120,6 +120,12 @@ class CustomTextField extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.normal),
           decoration: InputDecoration(
+            counterText: isSearch
+                ? ""
+                : ' ', //this to avoid TFF to be pushed up by validation msg
+            contentPadding: EdgeInsets.symmetric(
+                vertical: 10.0,
+                horizontal: 10.0), // this instead of using hight to sizedbox
             suffixIcon: isPassField
                 ? IconButton(
                     onPressed: suffixOnTap,

@@ -29,7 +29,7 @@ class DrawerWidget extends StatelessWidget {
                 CircleAvatar(
                     minRadius: 20,
                     maxRadius: 20,
-                    backgroundImage: NetworkImage(user.personalImage)),
+                    backgroundImage: NetworkImage(user.profileImage)),
                 TxtStyle("  ${user.firstName}", 24, fontWeight: FontWeight.bold)
               ]),
               SizedBox(
@@ -52,7 +52,7 @@ class DrawerWidget extends StatelessWidget {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ActivityScreen())),
+                        builder: (context) => ActivityScreen(user: user))),
               ),
               ListTile(
                 leading: const Icon(Icons.notifications, color: secondary),

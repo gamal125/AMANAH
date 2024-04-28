@@ -1,8 +1,8 @@
 import 'package:amanah/core/utils/colors/colors.dart';
 import 'package:amanah/core/utils/widgets/loading_widget.dart';
 import 'package:amanah/core/utils/widgets/txt_style.dart';
-import 'package:amanah/features/home/application/user_cubit/post_cubit.dart';
-import 'package:amanah/features/home/application/user_cubit/post_states.dart';
+import 'package:amanah/features/home/application/post_cubit/post_cubit.dart';
+import 'package:amanah/features/home/application/post_cubit/post_states.dart';
 import 'package:amanah/features/home/presentation/screens/add_post_screen.dart';
 import 'package:amanah/features/home/presentation/screens/post_details_screen.dart';
 import 'package:amanah/features/home/presentation/widgets/header_widget.dart';
@@ -51,88 +51,100 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 35, bottom: 40),
                     child: GestureDetector(
                         child: HeaderWidget(
-                            image: user.personalImage,
+                            image: user.profileImage,
                             controller: controller,
                             onTap: () =>
                                 scaffoldKey.currentState!.openDrawer()))),
-              //collection box
-              Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-        decoration: BoxDecoration(
-            color: secondary, borderRadius: BorderRadius.circular(15.r)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TxtStyle(
-              "Top Collections",
-              20,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-            SizedBox(height: 8.h),
-            BlocBuilder<PostCubit, PostStates>(
-              builder: (context, state) {
-                PostCubit postCubit = PostCubit.get(context);
-                return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            GestureDetector(
-                              onTap: () => postCubit.getPostsByType("Food"),
-                              child: const CollectionWidget(
-                                  imagePath: "assets/icons/food.png", title: "Food"),
-                            ),
-                            GestureDetector(
-                              onTap: () =>postCubit.getPostsByType("Electronics"),
-                              child: const CollectionWidget(
-                                  imagePath: "assets/icons/elec.png", title: "Electronics"),
-                            ),
-                            GestureDetector(
-                              onTap: () =>postCubit.getPostsByType("Toys"),
-                              child: const CollectionWidget(
-                                  imagePath: "assets/icons/toys.png", title: "Toys"),
-                            ),
-                            GestureDetector(
-                              onTap: () => postCubit.getPostsByType("Cosmetics"),
-                              child: const CollectionWidget(
-                                  imagePath: "assets/icons/coz.png", title: "Cosmetics"),
-                            ),
-                            GestureDetector(
-                              onTap: () => postCubit.getPostsByType("Clothes"),
-                              child: const CollectionWidget(
-                                  imagePath: "assets/icons/clothes.png", title: "Clothes"),
-                            ),
-                          ],
-                        );
-              },
-            ),
-          ],
-        ),
-      ),
-  
+                //collection box
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: secondary,
+                      borderRadius: BorderRadius.circular(15.r)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TxtStyle(
+                        "Top Collections",
+                        20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      SizedBox(height: 8.h),
+                      BlocBuilder<PostCubit, PostStates>(
+                        builder: (context, state) {
+                          PostCubit postCubit = PostCubit.get(context);
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                onTap: () => postCubit.getPostsByType("Food"),
+                                child: const CollectionWidget(
+                                    imagePath: "assets/icons/food.png",
+                                    title: "Food"),
+                              ),
+                              GestureDetector(
+                                onTap: () =>
+                                    postCubit.getPostsByType("Electronics"),
+                                child: const CollectionWidget(
+                                    imagePath: "assets/icons/elec.png",
+                                    title: "Electronics"),
+                              ),
+                              GestureDetector(
+                                onTap: () => postCubit.getPostsByType("Toys"),
+                                child: const CollectionWidget(
+                                    imagePath: "assets/icons/toys.png",
+                                    title: "Toys"),
+                              ),
+                              GestureDetector(
+                                onTap: () =>
+                                    postCubit.getPostsByType("Cosmetics"),
+                                child: const CollectionWidget(
+                                    imagePath: "assets/icons/coz.png",
+                                    title: "Cosmetics"),
+                              ),
+                              GestureDetector(
+                                onTap: () =>
+                                    postCubit.getPostsByType("Clothes"),
+                                child: const CollectionWidget(
+                                    imagePath: "assets/icons/clothes.png",
+                                    title: "Clothes"),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+
                 SizedBox(height: 30.h),
                 const TitleWidget(),
                 Expanded(
                     child: BlocConsumer<PostCubit, PostStates>(
-                  listener: (context, state) {
-                  },
+                  listener: (context, state) {},
                   builder: (context, state) {
                     if (state is PostLoadingState) {
                       return const LoadingWidget();
                     } else if (state is GetPostsSuccessState) {
                       return GridView.builder(
+                          itemCount: state.posts.length,
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
                           ),
+                          physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) => GestureDetector(
                               onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => PostDetailsScreen(
-                                          postModel: state.posts[index]))),
+                                          postModel: state.posts[index],
+                                          userModel: user))),
                               child: PostCard(postModel: state.posts[index])));
                     } else {
                       return Conditional.single(

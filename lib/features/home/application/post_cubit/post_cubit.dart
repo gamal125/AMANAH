@@ -1,7 +1,7 @@
 import 'package:amanah/core/errors/custom_exception.dart';
 import 'package:amanah/core/utils/functions/functions.dart';
 import 'package:amanah/features/auth/data/models/user_model.dart';
-import 'package:amanah/features/home/application/user_cubit/post_states.dart';
+import 'package:amanah/features/home/application/post_cubit/post_states.dart';
 import 'package:amanah/features/home/data/models/post_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ class PostCubit extends Cubit<PostStates> {
         "${arrdayController.text}-${arrmonthController.text}-${arryearController.text}";
     travelTimeController.text =
         "${hourController.text}:${minutesController.text} ${timeController.text}";
-    travelTimeController.text =
+    arrivalTimeController.text =
         "${arrhourController.text}:${arrminutesController.text} ${arrtimeController.text}";
 
     emit(PostLoadingState());
@@ -75,9 +75,10 @@ class PostCubit extends Cubit<PostStates> {
     final postId = postDoc.id;
     final PostModel postModel = PostModel(
         postId: postId,
+        userToken: userModel.userToken,
         userId: userModel.userId,
         userName: userModel.firstName,
-        userPhoto: userModel.personalImage,
+        userPhoto: userModel.profileImage,
         weight: weightController.text,
         travelDate: travelDateController.text,
         description: descriptionController.text,
@@ -86,7 +87,7 @@ class PostCubit extends Cubit<PostStates> {
         travelTime: travelTimeController.text,
         arrivalDate: arrivalDateController.text,
         arrivalTime: arrivalTimeController.text,
-        availableWeight: double.parse(availableWeightController.text),
+        availableWeight: double.parse(weightController.text),
         hieght: double.parse(heightController.text),
         width: double.parse(widthController.text),
         depth: double.parse(depthController.text),
@@ -95,7 +96,7 @@ class PostCubit extends Cubit<PostStates> {
         basePrice: double.parse(basePriceController.text));
     firestore
         .collection("posts")
-        .doc(userModel.userId)
+        .doc(postId)
         .set(postModel.toMap())
         .then((value) {
       emit(AddPostSuccessState());

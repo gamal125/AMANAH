@@ -116,26 +116,29 @@ class ProfilePhotoScreen extends StatelessWidget {
                           fallbackBuilder: (BuildContext context) =>
                               const LoadingWidget(),
                           widgetBuilder: (context) {
-                            return CustomButton(
-                                text: "Continue",
-                                onPressed: () {
-                                  if (signupCubit.personalImage == "") {
-                                    ShowDialog.show(
-                                        context, "Upload Your Photo", " ");
-                                  } else {
-                                    signupCubit
-                                        .createUser()
-                                        .then((user) => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomeScreen(user: user))))
-                                        .catchError((_) => ShowDialog.show(
-                                            context,
-                                            "Error",
-                                            "Please Try Again"));
-                                  }
-                                });
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 18.0),
+                              child: CustomButton(
+                                  text: "Continue",
+                                  onPressed: () {
+                                    if (signupCubit.personalImage == "") {
+                                      ShowDialog.show(
+                                          context, "Upload Your Photo", " ");
+                                    } else {
+                                      signupCubit
+                                          .createUser()
+                                          .then((user) => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HomeScreen(user: user))))
+                                          .catchError((_) => ShowDialog.show(
+                                              context,
+                                              "Error",
+                                              "Please Try Again"));
+                                    }
+                                  }),
+                            );
                           })
                     ]);
                   }))

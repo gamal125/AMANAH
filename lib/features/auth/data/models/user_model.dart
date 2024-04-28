@@ -8,8 +8,10 @@ class UserModel {
   String password;
   String country;
   String idImage;
-  String personalImage;
+  String profileImage;
   bool isShipping;
+  String userToken;
+  String personalImage;
   // List<Activity> listOfActivities;
   // List<Notification> listOfNotifications;
   // List<Payment> listOfPayments;
@@ -25,12 +27,11 @@ class UserModel {
     required this.password,
     required this.country,
     required this.idImage,
-    required this.personalImage,
-     this.isShipping = false,
-    // required this.listOfActivities,
-    // required this.listOfNotifications,
-    // required this.listOfPayments,
-    // required this.listOfRequests,
+     this.profileImage =  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+    required this.userToken,
+    required this.personalImage 
+       ,
+    this.isShipping = false,
   });
 
   //from map
@@ -46,23 +47,27 @@ class UserModel {
         password: json['password'] as String,
         idImage: json['idImage'] as String,
         isShipping: json['isShipping'] as bool,
-        personalImage: json['personalImage'] as String);
+        profileImage: json['personalImage'] as String,
+        personalImage: json['personalImage'],
+        userToken: json['userToken']);
   }
 
   //to map
   Map<String, dynamic> toMap() {
     return {
       "firstName": firstName,
-      "lastName" : lastName,
+      "lastName": lastName,
       "userId": userId,
       "phoneNumber": phoneNumber,
       "email": email,
       "password": password,
       "dateOfBirth": dateOfBirth,
       "country": country,
-      "idImage" : idImage,
-      "personalImage": personalImage,
-      "isShipping" : isShipping,
+      "idImage": idImage,
+      "profileImage": profileImage,
+      "isShipping": isShipping,
+      'userToken': userToken,
+      'personalImage': personalImage
     };
   }
 }

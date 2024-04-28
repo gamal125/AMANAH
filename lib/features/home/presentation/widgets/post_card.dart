@@ -22,7 +22,8 @@ class PostCard extends StatelessWidget {
                   offset: const Offset(0, 4)),
             ],
             borderRadius: BorderRadius.circular(15.r)),
-        child:  Column(
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
@@ -56,7 +57,8 @@ class PostCard extends StatelessWidget {
                         children: [
                           const TxtStyle("From", 10,
                               fontWeight: FontWeight.bold, color: darkGrey),
-                          TxtStyle(postModel.currentLocation, 13, fontWeight: FontWeight.bold),
+                          TxtStyle(postModel.currentLocation, 13,
+                              fontWeight: FontWeight.bold),
                         ]),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 6),
@@ -67,7 +69,8 @@ class PostCard extends StatelessWidget {
                       children: [
                         const TxtStyle("To", 10,
                             fontWeight: FontWeight.bold, color: darkGrey),
-                        TxtStyle(postModel.destination, 13, fontWeight: FontWeight.bold),
+                        TxtStyle(postModel.destination, 13,
+                            fontWeight: FontWeight.bold),
                       ],
                     )
                   ],
@@ -77,10 +80,12 @@ class PostCard extends StatelessWidget {
               Row(
                 children: [
                   const Icon(Icons.circle, color: primary, size: 12),
-                  TxtStyle(" ${postModel.recommendedItemsToShip}", 13, fontWeight: FontWeight.bold),
+                  TxtStyle(" ${postModel.recommendedItemsToShip}", 13,
+                      fontWeight: FontWeight.bold),
                 ],
               ),
-              TxtStyle("Base Price   ${postModel.basePrice}\$", 11, fontWeight: FontWeight.bold),
+              TxtStyle("Base Price   ${postModel.basePrice}\$", 11,
+                  fontWeight: FontWeight.bold),
             ]));
   }
 }

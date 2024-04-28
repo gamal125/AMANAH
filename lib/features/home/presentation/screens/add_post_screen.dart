@@ -5,8 +5,8 @@ import 'package:amanah/core/utils/widgets/dialog.dart';
 import 'package:amanah/core/utils/widgets/loading_widget.dart';
 import 'package:amanah/core/utils/widgets/txt_style.dart';
 import 'package:amanah/features/auth/data/models/user_model.dart';
-import 'package:amanah/features/home/application/user_cubit/post_cubit.dart';
-import 'package:amanah/features/home/application/user_cubit/post_states.dart';
+import 'package:amanah/features/home/application/post_cubit/post_cubit.dart';
+import 'package:amanah/features/home/application/post_cubit/post_states.dart';
 import 'package:amanah/features/home/presentation/screens/post_details_screen.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -170,8 +170,12 @@ class AddPostScreen extends StatelessWidget {
                               readOnly: true,
                               isDate: true,
                               controller: postCubit.timeController,
-                              validator: (d) {
-                                return "";
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Don't let the field empty";
+                                } else {
+                                  return null;
+                                }
                               }),
                         ],
                       ),
@@ -253,10 +257,14 @@ class AddPostScreen extends StatelessWidget {
                               onTap: () => postCubit.changeTime(arrival: true),
                               readOnly: true,
                               isDate: true,
-                              controller: postCubit.arrtimeController,
-                              validator: (d) {
-                                return "";
-                              }),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Don't let the field empty";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              controller: postCubit.arrtimeController),
                         ],
                       ),
                       const TxtStyle("\nWeight", 24,
@@ -282,10 +290,7 @@ class AddPostScreen extends StatelessWidget {
                                 placeholder: "KG",
                                 readOnly: true,
                                 isDate: true,
-                                controller: controller,
-                                validator: (d) {
-                                  return "";
-                                }),
+                                controller: controller),
                           ]),
                       const TxtStyle("\nSize", 24, fontWeight: FontWeight.bold),
                       SizedBox(height: 22.h),
@@ -335,10 +340,19 @@ class AddPostScreen extends StatelessWidget {
                         child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 22.0),
                             child: SizedBox(
-                                width: 240.w,
+                                height: 55.h,
+                                width: 318.w,
                                 child: DropdownButtonFormField(
                                     decoration: InputDecoration(
+                                        contentPadding: const EdgeInsets.all(6),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide:
+                                                const BorderSide(color: primary),
+                                            borderRadius:
+                                                BorderRadius.circular(15.r)),
                                         enabledBorder: OutlineInputBorder(
+                                            borderSide:
+                                                const BorderSide(color: primary),
                                             borderRadius:
                                                 BorderRadius.circular(15.r))),
                                     items: postCubit.collections
@@ -361,10 +375,7 @@ class AddPostScreen extends StatelessWidget {
                       Center(
                         child: CustomTextField(
                             placeholder: "Other",
-                            controller: postCubit.othersController,
-                            validator: (d) {
-                              return "";
-                            }),
+                            controller: postCubit.othersController),
                       ),
                       const TxtStyle("\nBase Price", 24,
                           fontWeight: FontWeight.bold),
@@ -390,10 +401,7 @@ class AddPostScreen extends StatelessWidget {
                                   readOnly: true,
                                   isDate: true,
                                   placeholder: "\$",
-                                  controller: controller,
-                                  validator: (d) {
-                                    return "";
-                                  }),
+                                  controller: controller),
                             ]),
                       ),
                       Conditional.single(

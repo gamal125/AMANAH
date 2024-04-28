@@ -1,7 +1,7 @@
 import 'package:amanah/core/utils/colors/colors.dart';
 import 'package:amanah/core/utils/widgets/txt_style.dart';
 import 'package:amanah/features/auth/data/models/user_model.dart';
-import 'package:amanah/features/home/application/user_cubit/post_cubit.dart';
+import 'package:amanah/features/home/application/post_cubit/post_cubit.dart';
 import 'package:amanah/features/home/presentation/screens/search_screen.dart';
 import 'package:amanah/features/home/presentation/widgets/collection_widget.dart';
 import 'package:flutter/material.dart';

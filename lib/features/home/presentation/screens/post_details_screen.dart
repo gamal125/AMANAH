@@ -11,8 +11,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class PostDetailsScreen extends StatelessWidget {
   final PostModel postModel;
   final bool isTraveller;
-  final UserModel? userModel; 
-  const PostDetailsScreen({required this.postModel, this.userModel, this.isTraveller = false, super.key});
+  final UserModel? userModel;
+  const PostDetailsScreen(
+      {required this.postModel,
+      this.userModel,
+      this.isTraveller = false,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +31,11 @@ class PostDetailsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CircleAvatar(
-                minRadius: 40, maxRadius: 40, backgroundColor: primary),
-            const TxtStyle("Tashed", 36, fontWeight: FontWeight.bold),
+            CircleAvatar(
+                minRadius: 40,
+                maxRadius: 40,
+                backgroundImage: NetworkImage(postModel.userPhoto)),
+            TxtStyle(postModel.userName, 33, fontWeight: FontWeight.bold),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -130,13 +136,15 @@ class PostDetailsScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold, color: secondarySoft),
             ),
             const Spacer(),
-           
             CustomButton(
-              text:  isTraveller ? "Request" : "Done",
+              text: userModel!.userId == postModel.userId ? "Done" : "Request",
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => isTraveller ? const RequestScreen() : HomeScreen(user: userModel!))),
+                      builder: (context) =>
+                          userModel!.userId == postModel.userId
+                              ? HomeScreen(user: userModel!)
+                              :  RequestScreen(userModel: userModel!, postModel: postModel))),
             ),
           ],
         ),
