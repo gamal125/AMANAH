@@ -36,6 +36,8 @@ class NotificationCubit extends Cubit<NotificationStates> {
           notifications.add(notificationModel);
           return notifications;
         }).toList();
+        
+        notifications.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
         emit(NotificationLoadedState(notifications: notifications));
       } else {

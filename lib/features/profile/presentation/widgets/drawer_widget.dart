@@ -29,7 +29,7 @@ class DrawerWidget extends StatelessWidget {
                 CircleAvatar(
                     minRadius: 20,
                     maxRadius: 20,
-                    backgroundImage: NetworkImage(user.profileImage)),
+                    backgroundImage: NetworkImage(user.profileImage!)),
                 TxtStyle("  ${user.firstName}", 24, fontWeight: FontWeight.bold)
               ]),
               SizedBox(

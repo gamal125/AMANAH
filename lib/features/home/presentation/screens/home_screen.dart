@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 35, bottom: 40),
                     child: GestureDetector(
                         child: HeaderWidget(
-                            image: user.profileImage,
+                            userModel: user,
                             controller: controller,
                             onTap: () =>
                                 scaffoldKey.currentState!.openDrawer()))),
@@ -131,12 +131,12 @@ class HomeScreen extends StatelessWidget {
                       return GridView.builder(
                           itemCount: state.posts.length,
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
                           ),
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) => GestureDetector(
                               onTap: () => Navigator.push(

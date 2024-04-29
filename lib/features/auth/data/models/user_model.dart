@@ -8,14 +8,10 @@ class UserModel {
   String password;
   String country;
   String idImage;
-  String profileImage;
+  String? profileImage;
   bool isShipping;
   String userToken;
   String personalImage;
-  // List<Activity> listOfActivities;
-  // List<Notification> listOfNotifications;
-  // List<Payment> listOfPayments;
-  // List<Request> listOfRequests;
 
   UserModel({
     required this.userId,
@@ -48,8 +44,9 @@ class UserModel {
         idImage: json['idImage'] as String,
         isShipping: json['isShipping'] as bool,
         profileImage: json['profileImage'] as String,
-        personalImage: json['personalImage'],
-        userToken: json['userToken']);
+
+        personalImage: json['personalImage'] as String,
+        userToken: json['userToken'] as String);
   }
 
   //to map

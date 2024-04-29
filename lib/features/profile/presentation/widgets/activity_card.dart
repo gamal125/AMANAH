@@ -47,7 +47,7 @@ class ActivityCard extends StatelessWidget {
             SizedBox(width: 45.w),
             TxtStyle("  ${requestModel.from}", 14, fontWeight: FontWeight.bold),
             const Icon(Icons.arrow_forward, color: primary),
-            TxtStyle("${requestModel.to}", 14, fontWeight: FontWeight.bold),
+            TxtStyle(requestModel.to, 14, fontWeight: FontWeight.bold),
           ],
         ),
         Row(

@@ -78,7 +78,8 @@ class PostCubit extends Cubit<PostStates> {
         userToken: userModel.userToken,
         userId: userModel.userId,
         userName: userModel.firstName,
-        userPhoto: userModel.profileImage,
+        userPhoto: userModel.profileImage!,
+        
         weight: weightController.text,
         travelDate: travelDateController.text,
         description: descriptionController.text,

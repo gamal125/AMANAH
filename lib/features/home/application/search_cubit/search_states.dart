@@ -1,3 +1,5 @@
+import 'package:amanah/features/home/data/models/post_model.dart';
+
 abstract class SearchStates {}
 
 class SearchInitialState extends SearchStates {}
@@ -6,7 +8,7 @@ class SearchLoadingState implements SearchStates {}
 
 
 class SearchResultLoadedState implements SearchStates {
-  List posts;
+  List<PostModel> posts;
   SearchResultLoadedState({required this.posts});
 }
 
