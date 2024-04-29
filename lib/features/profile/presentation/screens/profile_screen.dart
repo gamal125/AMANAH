@@ -2,6 +2,7 @@ import 'package:amanah/core/utils/colors/colors.dart';
 import 'package:amanah/core/utils/widgets/custom_button.dart';
 import 'package:amanah/core/utils/widgets/txt_style.dart';
 import 'package:amanah/features/auth/data/models/user_model.dart';
+import 'package:amanah/features/profile/presentation/screens/update_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -31,12 +32,19 @@ class ProfileScreen extends StatelessWidget {
 
             //stars
             SizedBox(height: 20.h),
-            const Align(
-              alignment: Alignment.topLeft,
-              child: TxtStyle("Personal Information", 22,
-                  fontWeight: FontWeight.bold),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Align(
+                  alignment: Alignment.topLeft,
+                  child: TxtStyle("Personal Information", 22,
+                      fontWeight: FontWeight.bold),
+                ),
+                IconButton(icon:Icon(Icons.edit, color: primary), onPressed: ()=>Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>  UpdateProfileScreen(userModel: user))))
+              ],
             ),
-            // Icon(Icons.edit, color: primary),
             ListTile(
               leading: const Icon(Icons.person, color: primary),
               title: TxtStyle(user.firstName, 20,

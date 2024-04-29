@@ -27,10 +27,10 @@ class UserModel {
     required this.password,
     required this.country,
     required this.idImage,
-     this.profileImage =  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+    this.profileImage =
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
     required this.userToken,
-    required this.personalImage 
-       ,
+    required this.personalImage,
     this.isShipping = false,
   });
 
@@ -47,7 +47,7 @@ class UserModel {
         password: json['password'] as String,
         idImage: json['idImage'] as String,
         isShipping: json['isShipping'] as bool,
-        profileImage: json['personalImage'] as String,
+        profileImage: json['profileImage'] as String,
         personalImage: json['personalImage'],
         userToken: json['userToken']);
   }
