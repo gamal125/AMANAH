@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:amanah/core/utils/colors/colors.dart';
 import 'package:amanah/core/utils/widgets/dialog.dart';
 import 'package:amanah/core/utils/widgets/loading_widget.dart';
@@ -40,7 +42,7 @@ class ActivityScreen extends StatelessWidget {
                     SizedBox(height: 70.h),
                     ...state.requests
                         .map((request) => request.status == "rejected"
-                            ? SizedBox()
+                            ? const SizedBox()
                             : GestureDetector(
                                 onTap: requestCubit.currentUserId ==
                                             request.travellerId &&
@@ -121,7 +123,7 @@ class ActivityScreen extends StatelessWidget {
                                                       }
                                                     : () {},
                                 child: ActivityCard(requestModel: request)))
-                        .toList(),
+                        ,
                   ],
                 );
               } else {
@@ -129,13 +131,13 @@ class ActivityScreen extends StatelessWidget {
                     context: context,
                     conditionBuilder: (context) =>
                         state is! RequestLoadingState,
-                    fallbackBuilder: (context) => LoadingWidget(),
+                    fallbackBuilder: (context) => const LoadingWidget(),
                     widgetBuilder: (context) => Column(
                           children: [
                             const TxtStyle("Activities", 36,
                                 fontWeight: FontWeight.bold),
                             SizedBox(height: 70.h),
-                            Center(
+                            const Center(
                                 child:
                                     TxtStyle("There's No Activities Yet", 14)),
                           ],

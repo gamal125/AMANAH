@@ -2,6 +2,7 @@ import 'package:amanah/core/utils/colors/colors.dart';
 import 'package:amanah/core/utils/widgets/custom_button.dart';
 import 'package:amanah/core/utils/widgets/custom_text_field.dart';
 import 'package:amanah/core/utils/widgets/dialog.dart';
+import 'package:amanah/core/utils/widgets/loading_widget.dart';
 import 'package:amanah/core/utils/widgets/txt_style.dart';
 import 'package:amanah/features/auth/application/login_cubit/login_cubit.dart';
 import 'package:amanah/features/auth/application/login_cubit/login_states.dart';
@@ -9,6 +10,7 @@ import 'package:amanah/features/auth/presentation/screens/signup_screen.dart';
 import 'package:amanah/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -29,7 +31,8 @@ class LoginScreen extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>  HomeScreen(user: state.userModel)),
+                          builder: (context) =>
+                              HomeScreen(user: state.userModel)),
                       (Route<dynamic> route) => false);
                 }
                 if (state is LoginErrorState) {
@@ -47,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(height: 170.h),
                       const TxtStyle("Log In", 36, fontWeight: FontWeight.bold),
                       Padding(
-                        padding: const EdgeInsets.only(top: 90, bottom: 26),
+                        padding: const EdgeInsets.only(top: 90),
                         child: CustomTextField(
                             placeholder: "Email",
                             controller: loginCubit.emailController,
@@ -83,14 +86,21 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 40, bottom: 200),
-                        child: CustomButton(
-                            text: "Log In",
-                            onPressed: () {
-                              if (loginCubit.loginFormKey.currentState!
-                                  .validate()) {
-                                loginCubit.login();
-                              }
-                            }),
+                        child: Conditional.single(
+                          context: context,
+                          conditionBuilder: (context) => state is! LoginLoadingState,
+                          fallbackBuilder: (context) => LoadingWidget(),
+                          widgetBuilder: (context) {
+                            return CustomButton(
+                                text: "Log In",
+                                onPressed: () {
+                                  if (loginCubit.loginFormKey.currentState!
+                                      .validate()) {
+                                    loginCubit.login();
+                                  }
+                                });
+                          }
+                        ),
                       ),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,

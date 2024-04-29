@@ -187,7 +187,7 @@ class RequestScreen extends StatelessWidget {
                               context: context,
                               conditionBuilder: (context) =>
                                   requestCubit.state is! RequestLoadingState,
-                              fallbackBuilder: (context) => LoadingWidget(),
+                              fallbackBuilder: (context) => const LoadingWidget(),
                               widgetBuilder: (context) {
                                 return Padding(
                                   padding: const EdgeInsets.only(

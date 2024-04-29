@@ -47,7 +47,7 @@ class NotificationCard extends StatelessWidget {
                       14,
                       fontWeight: FontWeight.bold),
                   TxtStyle(
-                    "${notificationModel.notificationBody}",
+                    notificationModel.notificationBody,
                     12,
                     color: secondary,
                     fontWeight: FontWeight.normal,

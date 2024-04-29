@@ -32,14 +32,14 @@ class NotificationScreen extends StatelessWidget {
                       const TxtStyle("Notifications", 36,
                           fontWeight: FontWeight.bold),
                       SizedBox(height: 50.h),
-                      Row(
+                      const Row(
                         children: [
                           Icon(Icons.circle, color: primary, size: 12),
                           TxtStyle(" You don't have notifications today", 14,
                               longText: true, fontWeight: FontWeight.bold),
-                          Center(child: LoadingWidget())
                         ],
                       ),
+                      Center(child: LoadingWidget())
                     ],
                   );
                 } else if (state is NotificationLoadedState) {
@@ -50,7 +50,7 @@ class NotificationScreen extends StatelessWidget {
                       SizedBox(height: 50.h),
                       Row(
                         children: [
-                          Icon(Icons.circle, color: primary, size: 12),
+                          const Icon(Icons.circle, color: primary, size: 12),
                           TxtStyle(
                               " You have ${state.notifications.length} notifications today",
                               14,
@@ -59,8 +59,9 @@ class NotificationScreen extends StatelessWidget {
                         ],
                       ),
                       ...state.notifications
-                          .map((notification) => NotificationCard(notificationModel: notification,))
-                          .toList()
+                          .map((notification) => NotificationCard(
+                                notificationModel: notification,
+                              ))
                     ],
                   );
                 } else {
@@ -69,7 +70,7 @@ class NotificationScreen extends StatelessWidget {
                       const TxtStyle("Notifications", 36,
                           fontWeight: FontWeight.bold),
                       SizedBox(height: 50.h),
-                      Row(
+                      const Row(
                         children: [
                           Icon(Icons.circle, color: primary, size: 12),
                           TxtStyle(" You don't have notifications today", 14,

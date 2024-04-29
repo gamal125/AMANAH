@@ -24,7 +24,7 @@ class InProgressScreen extends StatelessWidget {
           SizedBox(height: 30.h),
           const TxtStyle("In Progress", 36, fontWeight: FontWeight.bold),
           Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 20),
+              padding: const EdgeInsets.only(top: 25, bottom: 20),
               child: RequestWidget(requestModel: requestModel)),
           const Align(
               alignment: Alignment.topLeft,
