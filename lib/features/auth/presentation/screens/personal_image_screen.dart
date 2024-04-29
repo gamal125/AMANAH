@@ -14,9 +14,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../application/signup_cubit/signup_cubit.dart';
 import '../../application/signup_cubit/signup_states.dart';
 
-class ProfilePhotoScreen extends StatelessWidget {
+class PersonalImageScreen extends StatelessWidget {
   final SignupCubit signupCubit;
-  const ProfilePhotoScreen({required this.signupCubit, super.key});
+  const PersonalImageScreen({required this.signupCubit, super.key});
 
   @override
   Widget build(BuildContext context) {

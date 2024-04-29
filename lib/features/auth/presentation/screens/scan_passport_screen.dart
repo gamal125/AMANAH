@@ -6,7 +6,7 @@ import 'package:amanah/core/utils/widgets/dialog.dart';
 import 'package:amanah/core/utils/widgets/loading_widget.dart';
 import 'package:amanah/core/utils/widgets/txt_style.dart';
 import 'package:amanah/features/auth/application/signup_cubit/signup_states.dart';
-import 'package:amanah/features/auth/presentation/screens/profile_photo_screen.dart';
+import 'package:amanah/features/auth/presentation/screens/personal_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
@@ -125,7 +125,7 @@ class ScanPassportScreen extends StatelessWidget {
                                               builder: (context) =>
                                                   BlocProvider.value(
                                                       value: signupCubit,
-                                                      child: ProfilePhotoScreen(
+                                                      child: PersonalImageScreen(
                                                           signupCubit:
                                                               signupCubit))));
                                     }

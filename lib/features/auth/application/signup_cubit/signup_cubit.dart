@@ -25,8 +25,8 @@ class SignupCubit extends Cubit<SignupStates> {
   bool emailVerifed = false;
   String personalImage = "";
   String idImage = "";
-  // File? passportImageFile;
-  // File? profileImageFile;
+
+
   String? userId;
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();

@@ -5,7 +5,7 @@ import 'package:amanah/features/auth/data/models/user_model.dart';
 import 'package:amanah/features/profile/presentation/screens/activity_screen.dart';
 import 'package:amanah/features/profile/presentation/screens/notification_screen.dart';
 import 'package:amanah/features/profile/presentation/screens/profile_screen.dart';
-import 'package:amanah/features/profile/presentation/screens/settings_screen.dart';
+import 'package:amanah/features/profile/presentation/screens/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -64,13 +64,13 @@ class DrawerWidget extends StatelessWidget {
                         builder: (context) => const NotificationScreen())),
               ),
               ListTile(
-                leading: const Icon(Icons.settings, color: secondary),
-                title: const TxtStyle("Settings", 16,
+                leading: const Icon(Icons.password, color: secondary),
+                title: const TxtStyle("Change Password", 16,
                     color: secondary, fontWeight: FontWeight.bold),
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SettingsScreen())),
+                        builder: (context) => const ChangePasswordScreen())),
               ),
               ListTile(
                   leading: const Icon(Icons.logout, color: secondary),
