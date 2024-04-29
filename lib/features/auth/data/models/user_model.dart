@@ -8,14 +8,10 @@ class UserModel {
   String password;
   String country;
   String idImage;
-  String profileImage;
+  String? profileImage;
   bool isShipping;
   String userToken;
   String personalImage;
-  // List<Activity> listOfActivities;
-  // List<Notification> listOfNotifications;
-  // List<Payment> listOfPayments;
-  // List<Request> listOfRequests;
 
   UserModel({
     required this.userId,
@@ -29,8 +25,7 @@ class UserModel {
     required this.idImage,
      this.profileImage =  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
     required this.userToken,
-    required this.personalImage 
-       ,
+    required this.personalImage,
     this.isShipping = false,
   });
 
@@ -47,9 +42,9 @@ class UserModel {
         password: json['password'] as String,
         idImage: json['idImage'] as String,
         isShipping: json['isShipping'] as bool,
-        profileImage: json['personalImage'] as String,
-        personalImage: json['personalImage'],
-        userToken: json['userToken']);
+        profileImage: json['profileImage'] as String,
+        personalImage: json['personalImage'] as String,
+        userToken: json['userToken'] as String);
   }
 
   //to map

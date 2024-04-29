@@ -123,7 +123,7 @@ class CustomTextField extends StatelessWidget {
             counterText: isSearch
                 ? ""
                 : ' ', //this to avoid TFF to be pushed up by validation msg
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
                 vertical: 10.0,
                 horizontal: 10.0), // this instead of using hight to sizedbox
             suffixIcon: isPassField

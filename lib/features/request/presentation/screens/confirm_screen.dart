@@ -30,9 +30,9 @@ class ConfirmScreen extends StatelessWidget {
                 child: const Icon(Icons.arrow_back_ios, color: secondary)),
           ),
           body: Column(children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const TxtStyle("Confirm Payment Data", 33,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: TxtStyle("Confirm Payment Data", 33,
                   fontWeight: FontWeight.bold),
             ),
             Padding(

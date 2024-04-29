@@ -92,7 +92,7 @@ class SignupScreen extends StatelessWidget {
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 27),
+                        padding: const EdgeInsets.symmetric(vertical: 4),
                         child: CustomTextField(
                             onTap: () async {
                               final DateTime today = DateTime.now();
@@ -132,7 +132,7 @@ class SignupScreen extends StatelessWidget {
                             }
                           }),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 27),
+                        padding: const EdgeInsets.symmetric(vertical: 4),
                         child: CustomTextField(
                             placeholder: "Email",
                             controller: signupCubit.emailController,
@@ -159,7 +159,7 @@ class SignupScreen extends StatelessWidget {
                             }
                           }),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 27),
+                        padding: const EdgeInsets.symmetric(vertical: 4),
                         child: CustomTextField(
                             placeholder: "Confirm Password",
                             controller: signupCubit.confirmPassController,
@@ -184,12 +184,8 @@ class SignupScreen extends StatelessWidget {
                             showCountryPicker(
                                 context: context,
                                 onSelect: (Country country) {
-                                  //update the code using bloc
                                   signupCubit.countryController.text =
                                       country.name;
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //     SnackBar(
-                                  //         content: TxtStyle(country.name, 15)));
                                 });
                           },
                           readOnly: true,
@@ -203,7 +199,7 @@ class SignupScreen extends StatelessWidget {
                             }
                           }),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 40),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         child: Conditional.single(
                             context: context,
                             conditionBuilder: (BuildContext context) =>

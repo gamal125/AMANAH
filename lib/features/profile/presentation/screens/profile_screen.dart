@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
             CircleAvatar(
                 minRadius: 40,
                 maxRadius: 40,
-                backgroundImage: NetworkImage(user.profileImage)),
+                backgroundImage: NetworkImage(user.profileImage!)),
             TxtStyle("${user.firstName} ${user.lastName}", 20,
                 fontWeight: FontWeight.bold),
 

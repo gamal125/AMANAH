@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:amanah/bloc_obs.dart';
 import 'package:amanah/features/home/presentation/screens/splash_screen.dart';
 import 'package:amanah/firebase_options.dart';
@@ -58,7 +60,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     var initialzationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
     var initializationSettings =
         InitializationSettings(android: initialzationSettingsAndroid);
 

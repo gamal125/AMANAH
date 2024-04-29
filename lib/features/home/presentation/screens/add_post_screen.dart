@@ -47,7 +47,7 @@ class AddPostScreen extends StatelessWidget {
                       const TxtStyle("\nTravel Destinations", 24,
                           fontWeight: FontWeight.bold),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 22),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                         child: Center(
                           child: CustomTextField(
                               placeholder: "Your current location",
@@ -338,7 +338,7 @@ class AddPostScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                       Center(
                         child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 22.0),
+                            padding: const EdgeInsets.symmetric(vertical: 12.0),
                             child: SizedBox(
                                 height: 55.h,
                                 width: 318.w,
@@ -346,13 +346,13 @@ class AddPostScreen extends StatelessWidget {
                                     decoration: InputDecoration(
                                         contentPadding: const EdgeInsets.all(6),
                                         focusedBorder: OutlineInputBorder(
-                                            borderSide:
-                                                const BorderSide(color: primary),
+                                            borderSide: const BorderSide(
+                                                color: primary),
                                             borderRadius:
                                                 BorderRadius.circular(15.r)),
                                         enabledBorder: OutlineInputBorder(
-                                            borderSide:
-                                                const BorderSide(color: primary),
+                                            borderSide: const BorderSide(
+                                                color: primary),
                                             borderRadius:
                                                 BorderRadius.circular(15.r))),
                                     items: postCubit.collections
@@ -361,8 +361,7 @@ class AddPostScreen extends StatelessWidget {
                                             child: TxtStyle(collection, 12)))
                                         .toList(),
                                     value: postCubit.selectedCollection,
-                                    onChanged: (collection) =>
-                                        postCubit.setCollection(collection!)))
+                                    onChanged: (collection) => postCubit.setCollection(collection!)))
 
                             // CustomTextField(
                             // placeholder: "Recommended item to bring",
@@ -380,7 +379,7 @@ class AddPostScreen extends StatelessWidget {
                       const TxtStyle("\nBase Price", 24,
                           fontWeight: FontWeight.bold),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 22.0),
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

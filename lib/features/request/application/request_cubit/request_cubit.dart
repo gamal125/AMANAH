@@ -1,3 +1,7 @@
+// ignore_for_file: avoid_print
+
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'dart:convert';
 import 'package:amanah/features/request/data/models/notification_model.dart';
 import 'package:http/http.dart' as http;
@@ -84,7 +88,7 @@ class RequestCubit extends Cubit<RequestStates> {
   }
 
   void updateLastPrice() {
-    lastPrice = counters.fold(0, (sum, counter) => sum + counter.count);
+    lastPrice = counters.fold(0, (summ, counter) => summ + counter.count);
   }
 
   //create send req method
@@ -103,7 +107,7 @@ class RequestCubit extends Cubit<RequestStates> {
         travellerId: postModel.userId,
         travellerName: postModel.userName,
         userName: userModel.firstName,
-        userPhoto: userModel.profileImage,
+        userPhoto: userModel.profileImage!,
         travellerPhoto: postModel.userPhoto,
         description: descriptionController.text,
         from: postModel.currentLocation,
@@ -136,7 +140,7 @@ class RequestCubit extends Cubit<RequestStates> {
           fromToken: requestModel.userToken,
           toToken: requestModel.travellerToken,
           createdAt: DateTime.now(),
-          photo: requestModel.travellerPhoto);
+          photo: requestModel.userPhoto);
       await firestore
           .collection('notifications')
           .doc(notificationId)
