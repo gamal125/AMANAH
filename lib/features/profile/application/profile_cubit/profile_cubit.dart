@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously, duplicate_ignore, avoid_function_literals_in_foreach_calls
 import 'dart:io';
 
 import 'package:amanah/core/utils/functions/functions.dart';
@@ -19,6 +19,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   IconData suffixIcon = Icons.visibility_outlined;
   bool isPassword = true;
+
   String? profileImage;
 
   TextEditingController passController = TextEditingController();
@@ -27,24 +28,41 @@ class ProfileCubit extends Cubit<ProfileStates> {
   TextEditingController birthdayController = TextEditingController();
   TextEditingController countryController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController confirmPassController =
-      TextEditingController(); //Methods
+  TextEditingController confirmPassController = TextEditingController();
+  TextEditingController oldPassController = TextEditingController();
+  GlobalKey<FormState> changePassFormKey = GlobalKey<FormState>();
+
+  //Methods
 
   changePassword(BuildContext context) async {
-          final user = await getDataFromSharedPref();
+    final user = await getDataFromSharedPref();
 
     emit(ProfileLoadingState());
-    await firestore
-        .collection("users")
-        .doc(user.userId)
-        .update({"password": passController.text}).then((value)async {
+    if (oldPassController.text == user.password) {
+      await firestore
+          .collection("users")
+          .doc(user.userId)
+          .update({"password": passController.text}).then((value) async {
+        user.password = passController.text;
+        await storeDataLocally(user);
+        passController.clear();
+        confirmPassController.clear();
+        oldPassController.clear();
+        ShowDialog.show(context, "Password Setted", "");
+        emit(ProfileChangePasswordSuccessState(user: user));
+      });
+    } else {
       passController.clear();
-      ShowDialog.show(context, "Password Setted", "");
-      emit(ProfileChangePasswordSuccessState(user: user));
-    });
+      confirmPassController.clear();
+      oldPassController.clear();
+      ShowDialog.show(context, "Try Again", "Wrong Old Password");
+      emit(ProfileErrorState("wrong old pass"));
+    }
   }
 
   Future<UserModel> updateProfile(UserModel userModel) async {
+    final oldUser = userModel;
+    final image = profileImage ?? userModel.profileImage;
     emit(ProfileLoadingState());
     if (firstNameController.text.isEmpty &&
         lastNameController.text.isEmpty &&
@@ -73,11 +91,15 @@ class ProfileCubit extends Cubit<ProfileStates> {
               : phoneController.text,
           "profileImage": profileImage ?? userModel.profileImage
         }).then((value) {
+          if (firstNameController.text.isNotEmpty || profileImage != '') {
+            updateOtherCollections(oldUser, image!, firstNameController.text);
+          }
           firstNameController.clear();
           lastNameController.clear();
           countryController.clear();
           birthdayController.clear();
           phoneController.clear();
+          profileImage = '';
         });
 
         QuerySnapshot query = await firestore
@@ -99,6 +121,58 @@ class ProfileCubit extends Cubit<ProfileStates> {
     final user = await getDataFromSharedPref();
 
     return user;
+  }
+
+  updateOtherCollections(UserModel user, String prfImage, String name) async {
+    //update user data in posts collection
+    final QuerySnapshot query = await firestore
+        .collection("posts")
+        .where("userId", isEqualTo: user.userId)
+        .get();
+
+    query.docs.forEach((element) async {
+      element.reference.update({
+        "userName": name.isEmpty ? user.firstName : name,
+        "userPhoto": prfImage == "" ? user.profileImage : prfImage
+      });
+    });
+
+    //update user data in requests collection
+    final QuerySnapshot requestQuery = await firestore
+        .collection("requests")
+        .where("travellerId", isEqualTo: user.userId)
+        .get();
+
+    requestQuery.docs.forEach((element) async {
+      element.reference.update({
+        "travellerName": name.isEmpty ? user.firstName : name,
+        "travellerPhoto": prfImage == "" ? user.profileImage : prfImage
+      });
+    });
+
+    //update user data in notification collection
+    final QuerySnapshot notificationFromQuery = await firestore
+        .collection("notifications")
+        .where("fromToken", isEqualTo: user.userToken)
+        .get();
+
+    notificationFromQuery.docs.forEach((element) async {
+      element.reference.update({
+        "fromName": name.isEmpty ? user.firstName : name,
+        "photo": prfImage == "" ? user.profileImage : prfImage
+      });
+    });
+    final QuerySnapshot notificationToQuery = await firestore
+        .collection("notifications")
+        .where("toToken", isEqualTo: user.userToken)
+        .get();
+
+    notificationToQuery.docs.forEach((element) async {
+      element.reference.update({
+        "toName": name.isEmpty ? user.firstName : name,
+        "photo": prfImage == "" ? user.profileImage : prfImage
+      });
+    });
   }
 
   Future<File?> pickImage(BuildContext context) async {

@@ -101,6 +101,7 @@ class RequestCubit extends Cubit<RequestStates> {
     final RequestModel requestModel = RequestModel(
         requestId: requestId,
         userToken: userModel.userToken,
+        userPhone: userModel.phoneNumber,
         travellerToken: postModel.userToken,
         postId: postModel.postId,
         userId: userModel.userId,

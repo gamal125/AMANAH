@@ -72,7 +72,7 @@ class ChangeProfilePhotoScreen extends StatelessWidget {
                                                           context, user);
                                                 },
                                                 child: PhotoContainer(
-                                                    url: user.profileImage)),
+                                                    url: user.profileImage!)),
                                         widgetBuilder: (context) =>
                                             GestureDetector(
                                                 onTap: () async {

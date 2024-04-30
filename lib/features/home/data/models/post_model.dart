@@ -20,10 +20,12 @@ class PostModel {
   double basePrice;
   String userName;
   String userPhoto;
+  String userPhone;
   String? others;
+  DateTime createdAt;
   PostModel(
       {required this.postId,
-     required this.userToken,
+      required this.userToken,
       required this.weight,
       required this.userName,
       required this.userPhoto,
@@ -39,15 +41,18 @@ class PostModel {
       required this.hieght,
       required this.width,
       required this.depth,
+      required this.userPhone,
       required this.recommendedItemsToShip,
       required this.basePrice,
+      required this.createdAt,
       this.others = ''});
 
   //to map
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'postId': postId,
-      'userToken' :userToken,
+      "createdAt": createdAt.toIso8601String(),
+      'userToken': userToken,
       'userId': userId,
       "weight": weight,
       'description': description,
@@ -58,6 +63,7 @@ class PostModel {
       'arrivalTime': arrivalTime,
       'availableWeight': availableWeight,
       'depth': depth,
+      "userPhone" : userPhone,
       'hieght': hieght,
       'width': width,
       'recommendedItemsToShip': recommendedItemsToShip,
@@ -74,10 +80,12 @@ class PostModel {
       postId: map['postId'] as String,
       userId: map['userId'] as String,
       weight: map['weight'] as String,
+      createdAt: DateTime.tryParse(map['createdAt'])!,
       userToken: map['userToken'] as String,
       userName: map['userName'] as String,
       userPhoto: map['userPhoto'] as String,
-      description: map['description'] as String,
+      description: map['description'],
+      userPhone: map['userPhone'] as String,
       currentLocation: map['currentLocation'] as String,
       destination: map['destination'] as String,
       travelTime: map['travelTime'] as String,
@@ -88,7 +96,7 @@ class PostModel {
       hieght: map['hieght'] as double,
       depth: map['depth'] as double,
       width: map['width'] as double,
-      others: map['others'] as String,
+      others: map['others'],
       recommendedItemsToShip: map['recommendedItemsToShip'] as String,
       basePrice: map['basePrice'] as double,
     );

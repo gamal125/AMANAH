@@ -8,7 +8,6 @@ import 'package:amanah/features/home/presentation/screens/add_post_screen.dart';
 import 'package:amanah/features/home/presentation/screens/post_details_screen.dart';
 import 'package:amanah/features/home/presentation/widgets/header_widget.dart';
 import 'package:amanah/features/home/presentation/widgets/post_card.dart';
-import 'package:amanah/features/home/presentation/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
@@ -52,7 +51,40 @@ class SearchScreen extends StatelessWidget {
                         ));
                   },
                 ),
-                const TitleWidget(title: "Search Result"),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TxtStyle("Search Result", 32,
+                          fontWeight: FontWeight.bold),
+                      BlocBuilder<SearchCubit, SearchStates>(
+                        builder: (context, state) {
+                          SearchCubit searchCubit = SearchCubit.get(context);
+                          return GestureDetector(
+                            onTap: () => searchCubit.getAllPosts(),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: TxtStyle(
+                                      searchCubit.newest
+                                          ? "Newest  "
+                                          : "Oldest  ",
+                                      14,
+                                      fontWeight: FontWeight.bold,
+                                      color: darkGrey),
+                                ),
+                                Align(
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                        "assets/icons/up_down_arrow.png"))
+                              ],
+                            ),
+                          );
+                        },
+                      )
+                    ]),
                 Expanded(child: BlocBuilder<SearchCubit, SearchStates>(
                   builder: (context, state) {
                     if (state is SearchLoadingState) {

@@ -7,7 +7,6 @@ import 'package:amanah/features/home/presentation/screens/add_post_screen.dart';
 import 'package:amanah/features/home/presentation/screens/post_details_screen.dart';
 import 'package:amanah/features/home/presentation/widgets/header_widget.dart';
 import 'package:amanah/features/home/presentation/widgets/post_card.dart';
-import 'package:amanah/features/home/presentation/widgets/title_widget.dart';
 import 'package:amanah/features/profile/presentation/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,7 +119,41 @@ class HomeScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: 30.h),
-                const TitleWidget(),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TxtStyle("Most Popular", 32,
+                          fontWeight: FontWeight.bold),
+                      BlocBuilder<PostCubit, PostStates>(
+                        builder: (context, state) {
+                          PostCubit postCubit = PostCubit.get(context);
+                          return GestureDetector(
+                            onTap: () => postCubit
+                                .getPostsByType(postCubit.collectionName),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: TxtStyle(
+                                      postCubit.newest
+                                          ? "Newest  "
+                                          : "Oldest  ",
+                                      14,
+                                      fontWeight: FontWeight.bold,
+                                      color: darkGrey),
+                                ),
+                                Align(
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                        "assets/icons/up_down_arrow.png"))
+                              ],
+                            ),
+                          );
+                        },
+                      )
+                    ]),
                 Expanded(
                     child: BlocConsumer<PostCubit, PostStates>(
                   listener: (context, state) {},

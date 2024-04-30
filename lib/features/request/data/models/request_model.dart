@@ -13,6 +13,7 @@ class RequestModel {
   String recommendedItemsToShip;
   String from;
   String to;
+  String userPhone;
   DateTime date;
   String status;
   double weight;
@@ -48,6 +49,7 @@ class RequestModel {
       required this.itemPrice,
       required this.userToken,
       required this.travellerToken,
+      required this.userPhone,
       this.extraSize = 0.0,
       this.distanceFees = 0.0,
       this.moreSafety = 0.0,
@@ -60,6 +62,7 @@ class RequestModel {
       "recommendedItemsToShip": recommendedItemsToShip,
       "from": from,
       "to": to,
+      'userPhone': userPhone,
       "userToken": userToken,
       "travellerToken": travellerToken,
       "travellerId": travellerId,
@@ -90,6 +93,7 @@ class RequestModel {
         recommendedItemsToShip: map['recommendedItemsToShip'] as String,
         from: map['from'] as String,
         to: map['to'] as String,
+        userPhone: map['userPhone'] as String,
         travellerToken: map['travellerToken'] as String,
         userToken: map["userToken"] as String,
         requestId: map['requestId'] as String,

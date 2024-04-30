@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                   child: TxtStyle("Personal Information", 22,
                       fontWeight: FontWeight.bold),
                 ),
-                IconButton(icon:Icon(Icons.edit, color: primary), onPressed: ()=>Navigator.push(
+                IconButton(icon:const Icon(Icons.edit, color: primary), onPressed: ()=>Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) =>  UpdateProfileScreen(userModel: user))))
