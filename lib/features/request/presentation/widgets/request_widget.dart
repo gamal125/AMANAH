@@ -2,11 +2,12 @@ import 'package:amanah/core/utils/colors/colors.dart';
 import 'package:amanah/core/utils/widgets/txt_style.dart';
 import 'package:amanah/features/request/data/models/request_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RequestWidget extends StatelessWidget {
   final RequestModel requestModel;
-  const RequestWidget({required this.requestModel,super.key});
+  const RequestWidget({required this.requestModel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +19,25 @@ class RequestWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(right: 40.0),
         child: Column(children: [
-           Row(children: [
+          Row(children: [
             CircleAvatar(
-                minRadius: 20, maxRadius: 20, backgroundImage: NetworkImage(requestModel.userPhoto)),
-            TxtStyle("  ${requestModel.userName}", 24, fontWeight: FontWeight.bold)
+                minRadius: 20,
+                maxRadius: 20,
+                backgroundImage: NetworkImage(requestModel.userPhoto)),
+            TxtStyle("  ${requestModel.userName}", 24,
+                fontWeight: FontWeight.bold),
+           const Spacer(),
+            GestureDetector(
+                onTap: () async {
+                  // Uri phoneno = Uri.parse('tel:+${requestModel.userPhone}');
+                  // if (await launchUrl(phoneno)) {
+                  //   print("opened");
+                  // } else {
+                  FlutterPhoneDirectCaller.callNumber(requestModel.userPhone);
+                  // print("dailer is not opened");
+                  // }
+                },
+                child: Image.asset("assets/icons/phone_icon.png"))
           ]),
           SizedBox(height: 20.h),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -29,7 +45,8 @@ class RequestWidget extends StatelessWidget {
             Row(
               children: [
                 const Icon(Icons.circle, color: primary, size: 12),
-                TxtStyle(" ${requestModel.recommendedItemsToShip}", 16, color: secondarySoft),
+                TxtStyle(" ${requestModel.recommendedItemsToShip}", 16,
+                    color: secondarySoft),
               ],
             ),
           ]),
@@ -44,9 +61,12 @@ class RequestWidget extends StatelessWidget {
                 const TxtStyle("Size", 18, fontWeight: FontWeight.bold),
                 Column(
                   children: [
-                    TxtStyle("H ${requestModel.height} cm", 16, color: secondarySoft),
-                    TxtStyle("W ${requestModel.width} cm", 16, color: secondarySoft),
-                    TxtStyle("D ${requestModel.depth} cm", 16, color: secondarySoft),
+                    TxtStyle("H ${requestModel.height} cm", 16,
+                        color: secondarySoft),
+                    TxtStyle("W ${requestModel.width} cm", 16,
+                        color: secondarySoft),
+                    TxtStyle("D ${requestModel.depth} cm", 16,
+                        color: secondarySoft),
                   ],
                 ),
               ]),

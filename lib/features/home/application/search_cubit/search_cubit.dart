@@ -14,8 +14,11 @@ class SearchCubit extends Cubit<SearchStates> {
   TextEditingController searchController = TextEditingController();
   GlobalKey<FormState> searchFormKey = GlobalKey<FormState>();
   List<PostModel> posts = [];
+  bool newest = true;
+
   //Methods
   Future<List<PostModel>> getAllPosts() async {
+    newest = !newest;
     emit(SearchLoadingState());
     List<PostModel> postModels = [];
     QuerySnapshot query =
@@ -33,6 +36,9 @@ class SearchCubit extends Cubit<SearchStates> {
         emit(SearchResultEmptyState("There's No Data Data"));
       } else {
         posts = postModels;
+        newest
+            ? posts.sort((a, b) => b.createdAt.compareTo(a.createdAt))
+            : posts.sort((b, a) => b.createdAt.compareTo(a.createdAt));
 
         emit(SearchResultLoadedState(posts: postModels));
       }

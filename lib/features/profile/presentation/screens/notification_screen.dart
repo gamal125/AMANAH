@@ -39,7 +39,7 @@ class NotificationScreen extends StatelessWidget {
                               longText: true, fontWeight: FontWeight.bold),
                         ],
                       ),
-                      Center(child: LoadingWidget())
+                      const Center(child: LoadingWidget())
                     ],
                   );
                 } else if (state is NotificationLoadedState) {

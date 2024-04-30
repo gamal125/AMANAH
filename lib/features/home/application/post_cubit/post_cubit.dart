@@ -42,7 +42,8 @@ class PostCubit extends Cubit<PostStates> {
   TextEditingController arrtimeController = TextEditingController();
   TextEditingController othersController = TextEditingController();
   TextEditingController weightController = TextEditingController();
-
+  bool newest = true;
+  String collectionName = "Food";
   String time = "AM";
   bool isAm = true;
   GlobalKey<FormState> postFormKey = GlobalKey<FormState>();
@@ -75,11 +76,12 @@ class PostCubit extends Cubit<PostStates> {
     final postId = postDoc.id;
     final PostModel postModel = PostModel(
         postId: postId,
+        userPhone: userModel.phoneNumber,
         userToken: userModel.userToken,
         userId: userModel.userId,
         userName: userModel.firstName,
         userPhoto: userModel.profileImage!,
-        
+        createdAt: DateTime.now(),
         weight: weightController.text,
         travelDate: travelDateController.text,
         description: descriptionController.text,
@@ -108,13 +110,15 @@ class PostCubit extends Cubit<PostStates> {
     return postModel;
   }
 
-  Future getPostsByType(String collectionName) async {
+  Future getPostsByType(String collection) async {
+    collectionName = collection;
+    newest = !newest;
     emit(PostLoadingState());
     try {
       List<PostModel> posts = [];
       QuerySnapshot query = await firestore
           .collection("posts")
-          .where("recommendedItemsToShip", isEqualTo: collectionName)
+          .where("recommendedItemsToShip", isEqualTo: collection)
           .get();
 
       if (query.docs.isNotEmpty) {
@@ -125,6 +129,9 @@ class PostCubit extends Cubit<PostStates> {
           posts.add(postModel);
           return posts;
         }).toList();
+        newest
+            ? posts.sort((a, b) => b.createdAt.compareTo(a.createdAt))
+            : posts.sort((b, a) => b.createdAt.compareTo(a.createdAt));
 
         emit(GetPostsSuccessState(posts: posts));
       } else {

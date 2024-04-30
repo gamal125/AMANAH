@@ -10,6 +10,14 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool inHours = true;
+
+    Duration difference = DateTime.now().difference(postModel.createdAt);
+    if (difference.inHours == 24) {
+      inHours = false;
+    } else {
+      inHours = true;
+    }
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
         decoration: BoxDecoration(
@@ -40,10 +48,18 @@ class PostCard extends StatelessWidget {
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.center,
-                    child: TxtStyle("12h", 10,
-                        fontWeight: FontWeight.bold, color: darkGrey),
+                    child: TxtStyle(
+                        difference.inHours == 0
+                            ? "${difference.inMinutes.toString()}m"
+                            : inHours
+                                ? "${difference.inHours.toString()}h"
+                                : "${difference.inDays.toString()}d",
+                        // "${postModel.createdAt.hour}:${postModel.createdAt.minute}\n${postModel.createdAt.day}/${postModel.createdAt.month}",
+                        10,
+                        fontWeight: FontWeight.bold,
+                        color: darkGrey),
                   ),
                 ],
               ),

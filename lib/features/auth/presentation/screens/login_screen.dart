@@ -89,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                         child: Conditional.single(
                           context: context,
                           conditionBuilder: (context) => state is! LoginLoadingState,
-                          fallbackBuilder: (context) => LoadingWidget(),
+                          fallbackBuilder: (context) => const LoadingWidget(),
                           widgetBuilder: (context) {
                             return CustomButton(
                                 text: "Log In",
