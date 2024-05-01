@@ -40,90 +40,91 @@ class ActivityScreen extends StatelessWidget {
                     const TxtStyle("Activities", 36,
                         fontWeight: FontWeight.bold),
                     SizedBox(height: 70.h),
-                    ...state.requests
-                        .map((request) => request.status == "rejected"
-                            ? const SizedBox()
-                            : GestureDetector(
-                                onTap: requestCubit.currentUserId ==
+                    ...state.requests.map((request) => request.status ==
+                            "rejected"
+                        ? const SizedBox()
+                        : GestureDetector(
+                            onTap: requestCubit.currentUserId ==
+                                        request.travellerId &&
+                                    request.status == "sent"
+                                ? () {
+                                    print(request);
+                                    //traveller => go and set payment and accept or reject there
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                BlocProvider.value(
+                                                  value: requestCubit,
+                                                  child: TravellerRequestScreen(
+                                                      requestModel: request,
+                                                      requestCubit:
+                                                          requestCubit,
+                                                      user: user),
+                                                )));
+                                  }
+                                : requestCubit.currentUserId ==
                                             request.travellerId &&
-                                        request.status == "sent"
+                                        request.status == "setPayment"
                                     ? () {
-                                        //traveller => go and set payment and accept or reject there
-                                        Navigator.push(
+                                        //traveller => do nothing
+                                        ShowDialog.show(
                                             context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BlocProvider.value(
-                                                      value: requestCubit,
-                                                      child:
-                                                          TravellerRequestScreen(
-                                                              requestModel:
-                                                                  request,
-                                                              requestCubit:
-                                                                  requestCubit,
-                                                              user: user),
-                                                    )));
+                                            "Payment Setted",
+                                            "Wait for the confirmation");
                                       }
-                                    : requestCubit.currentUserId ==
+                                    : requestCubit.currentUserId !=
                                                 request.travellerId &&
-                                            request.status == "setPayment"
+                                            request.status == "sent"
                                         ? () {
-                                            //traveller => do nothing
+                                            print(request.userName);
+
+                                            //user => do nothing
+                                            print(request.userId);
+                                            print(request.travellerId);
                                             ShowDialog.show(
                                                 context,
-                                                "Payment Setted",
-                                                "Wait for the confirmation");
+                                                "Request Sent",
+                                                "Wait traveller to set payment");
                                           }
                                         : requestCubit.currentUserId !=
                                                     request.travellerId &&
-                                                request.status == "sent"
+                                                request.status == "setPayment"
                                             ? () {
-                                                //user => do nothing
-                                                print(request.userId);
-                                                print(request.travellerId);
-                                                ShowDialog.show(
+                                                //user => accept or reject
+                                                Navigator.push(
                                                     context,
-                                                    "Request Sent",
-                                                    "Wait traveller to set payment");
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            BlocProvider.value(
+                                                              value:
+                                                                  requestCubit,
+                                                              child: ConfirmScreen(
+                                                                  requestModel:
+                                                                      request,
+                                                                  requestCubit:
+                                                                      requestCubit),
+                                                            )));
                                               }
-                                            : requestCubit.currentUserId !=
-                                                        request.travellerId &&
-                                                    request.status ==
-                                                        "setPayment"
+                                            : request.status == "inProgress"
                                                 ? () {
-                                                    //user => accept or reject
+                                                    print(request.userName);
+
+                                                    //both should go to in progress screen
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
                                                             builder:
                                                                 (context) =>
-                                                                    BlocProvider
-                                                                        .value(
-                                                                      value:
-                                                                          requestCubit,
-                                                                      child: ConfirmScreen(
-                                                                          requestModel:
-                                                                              request,
-                                                                          requestCubit:
-                                                                              requestCubit),
-                                                                    )));
-                                                  }
-                                                : request.status == "inProgress"
-                                                    ? () {
-                                                        //i thnk both should go to in progress screen
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (context) =>
                                                                     InProgressScreen(
                                                                         requestModel:
                                                                             request,
+                                                                      
                                                                         user:
                                                                             user)));
-                                                      }
-                                                    : () {},
-                                child: ActivityCard(requestModel: request)))
-                        ,
+                                                  }
+                                                : () {},
+                            child: ActivityCard(requestModel: request))),
                   ],
                 );
               } else {

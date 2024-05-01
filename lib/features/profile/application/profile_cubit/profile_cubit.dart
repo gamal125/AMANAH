@@ -19,7 +19,6 @@ class ProfileCubit extends Cubit<ProfileStates> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   IconData suffixIcon = Icons.visibility_outlined;
   bool isPassword = true;
-
   String? profileImage;
 
   TextEditingController passController = TextEditingController();
@@ -63,6 +62,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
   Future<UserModel> updateProfile(UserModel userModel) async {
     final oldUser = userModel;
     final image = profileImage ?? userModel.profileImage;
+
     emit(ProfileLoadingState());
     if (firstNameController.text.isEmpty &&
         lastNameController.text.isEmpty &&
@@ -149,7 +149,17 @@ class ProfileCubit extends Cubit<ProfileStates> {
         "travellerPhoto": prfImage == "" ? user.profileImage : prfImage
       });
     });
+    final QuerySnapshot requestUserQuery = await firestore
+        .collection("requests")
+        .where("userId", isEqualTo: user.userId)
+        .get();
 
+    requestUserQuery.docs.forEach((element) async {
+      element.reference.update({
+        "userName": name.isEmpty ? user.firstName : name,
+        "userPhoto": prfImage == "" ? user.profileImage : prfImage
+      });
+    });
     //update user data in notification collection
     final QuerySnapshot notificationFromQuery = await firestore
         .collection("notifications")
@@ -159,7 +169,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
     notificationFromQuery.docs.forEach((element) async {
       element.reference.update({
         "fromName": name.isEmpty ? user.firstName : name,
-        "photo": prfImage == "" ? user.profileImage : prfImage
+        // "photo": prfImage == "" ? user.profileImage : prfImage
       });
     });
     final QuerySnapshot notificationToQuery = await firestore
@@ -170,14 +180,13 @@ class ProfileCubit extends Cubit<ProfileStates> {
     notificationToQuery.docs.forEach((element) async {
       element.reference.update({
         "toName": name.isEmpty ? user.firstName : name,
-        "photo": prfImage == "" ? user.profileImage : prfImage
+        // "photo": prfImage == "" ? user.profileImage : prfImage
       });
     });
   }
 
   Future<File?> pickImage(BuildContext context) async {
     File? image;
-
     try {
       final pickedImage =
           await ImagePicker().pickImage(source: ImageSource.gallery);

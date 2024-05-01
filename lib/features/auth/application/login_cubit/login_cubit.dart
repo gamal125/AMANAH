@@ -30,9 +30,14 @@ class LoginCubit extends Cubit<LoginStates> {
             email: emailController.text, password: passController.text)
         .then((value) {
       final userId = value.user!.uid;
+      firestore
+          .collection("users")
+          .doc(userId)
+          .update({"userToken": userToken});
       firestore.collection("users").doc(userId).get().then((value) {
         final UserModel userModel = UserModel.fromJson(value.data()!);
         userModel.userToken = userToken!;
+
         emit(LoginSuccessState(userModel));
         storeDataLocally(userModel);
       });

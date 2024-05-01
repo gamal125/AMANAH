@@ -169,7 +169,7 @@ class HomeScreen extends StatelessWidget {
                             mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
                           ),
-                          physics: const NeverScrollableScrollPhysics(),
+                          // physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) => GestureDetector(
                               onTap: () => Navigator.push(
