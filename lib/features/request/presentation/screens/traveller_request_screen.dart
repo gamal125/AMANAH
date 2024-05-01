@@ -106,9 +106,6 @@ class TravellerRequestScreen extends StatelessWidget {
                                                   ),
                                                 ],
                                               ),
-                                              // BlocProvider.value(
-                                              //     value: requestCubit,
-                                              //     child: CalcWidget()),
                                             ]);
                                       }),
                                 );

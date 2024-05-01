@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:amanah/core/utils/widgets/custom_button.dart';
 import 'package:amanah/core/utils/widgets/dialog.dart';
 import 'package:amanah/core/utils/widgets/loading_widget.dart';
@@ -31,24 +29,19 @@ class SplashScreen extends StatelessWidget {
               child: BlocConsumer<AuthCubit, AuthStates>(
                   listener: (context, authState) {
                 if (authState is AuthSuccessState) {
-                  Timer(
-                      const Duration(seconds: 0),
-                      () => Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>  HomeScreen(user: authState.userModel)),
-                            (Route<dynamic> route) => false,
-                          ));
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              HomeScreen(user: authState.userModel)),
+                      (Route<dynamic> route) => false);
                 } else if (authState is AuthFailState) {
                   {
-                    Timer(
-                        const Duration(seconds: 0),
-                        () => Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginScreen()),
-                              (Route<dynamic> route) => false,
-                            ));
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()),
+                        (Route<dynamic> route) => false);
                   }
                 } else if (authState is AuthErrorState) {
                   ShowDialog.show(context, "Error", authState.message);

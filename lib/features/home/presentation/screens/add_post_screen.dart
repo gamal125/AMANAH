@@ -104,7 +104,9 @@ class AddPostScreen extends StatelessWidget {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Don't let the field empty";
-                                  } else {
+                                  }  else if(int.parse(value) > 31){
+                                     return "Enter valid day";
+                                  }else {
                                     return null;
                                   }
                                 }),
@@ -116,7 +118,9 @@ class AddPostScreen extends StatelessWidget {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Don't let the field empty";
-                                  } else {
+                                  } else if(int.parse(value) > 12){
+                                     return "Enter valid month";
+                                  }else {
                                     return null;
                                   }
                                 }),
@@ -128,7 +132,9 @@ class AddPostScreen extends StatelessWidget {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Don't let the field empty";
-                                  } else {
+                                  } else if(int.parse(value) < 2024){
+                                     return "Enter valid year";
+                                  }else {
                                     return null;
                                   }
                                 }),
@@ -148,7 +154,9 @@ class AddPostScreen extends StatelessWidget {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Don't let the field empty";
-                                } else {
+                                } else if(int.parse(value) > 24){
+                                     return "Enter valid hour";
+                                  }else {
                                   return null;
                                 }
                               }),
@@ -160,7 +168,9 @@ class AddPostScreen extends StatelessWidget {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Don't let the field empty";
-                                } else {
+                                }else if(int.parse(value) > 60){
+                                     return "Enter valid minutes";
+                                  } else {
                                   return null;
                                 }
                               }),
@@ -193,7 +203,9 @@ class AddPostScreen extends StatelessWidget {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Don't let the field empty";
-                                  } else {
+                                  } else if(int.parse(value) > 31){
+                                     return "Enter valid day";
+                                  }else {
                                     return null;
                                   }
                                 }),
@@ -205,7 +217,9 @@ class AddPostScreen extends StatelessWidget {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Don't let the field empty";
-                                  } else {
+                                  } else if(int.parse(value) > 12){
+                                     return "Enter valid month";
+                                  }else {
                                     return null;
                                   }
                                 }),
@@ -217,6 +231,8 @@ class AddPostScreen extends StatelessWidget {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Don't let the field empty";
+                                  }else if(int.parse(value) < 2024){
+                                     return "Enter valid year";
                                   } else {
                                     return null;
                                   }
@@ -236,7 +252,9 @@ class AddPostScreen extends StatelessWidget {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Don't let the field empty";
-                                } else {
+                                }else if(int.parse(value) > 24){
+                                     return "Enter valid day";
+                                  } else {
                                   return null;
                                 }
                               }),
@@ -248,7 +266,9 @@ class AddPostScreen extends StatelessWidget {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Don't let the field empty";
-                                } else {
+                                } else if(int.parse(value) > 60){
+                                     return "Enter valid minutes";
+                                  }else {
                                   return null;
                                 }
                               }),
@@ -363,12 +383,6 @@ class AddPostScreen extends StatelessWidget {
                                     value: postCubit.selectedCollection,
                                     onChanged: (collection) => postCubit.setCollection(collection!)))
 
-                            // CustomTextField(
-                            // placeholder: "Recommended item to bring",
-                            // controller: postCubit.recommendedItemsController,
-                            // validator: (d) {
-                            //   return "";
-                            // }),
                             ),
                       ),
                       Center(
