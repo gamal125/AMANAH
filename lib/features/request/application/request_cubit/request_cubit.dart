@@ -342,10 +342,6 @@ class RequestCubit extends Cubit<RequestStates> {
     emit(DeleteRequestSuccessState());
     return user;
   }
-
-  //show updated req for both in activity
-  //handle confirm and delete actions
-  //add notifications
 }
 
 void sendPushMessage(String body, String title, String token) async {
@@ -370,9 +366,7 @@ void sendPushMessage(String body, String title, String token) async {
             'status': 'done'
           },
           "to": token
-          // "to":
-          //     "fJOL8pvMTtymdgS7n8H5EH:APA91bHGLOvK4oVgVLnFeGKHewFeYMSUX_RthusfmR4P1Pw-7d_teMyelHebt8Urc_oLp7dO0_H-kaYB1Ow2bz7Yfqz5Ua6EBUC74Qzfimmqwtu9MGtZzNprzACnBjZp66jxdMCYVv46",
-        },
+            },
       ),
     );
     if (res.statusCode == 200) {
