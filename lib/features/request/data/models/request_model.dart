@@ -20,6 +20,7 @@ class RequestModel {
   double height;
   double width;
   double depth;
+  double rate;
   double itemPrice;
   double extraSize;
   double distanceFees;
@@ -45,6 +46,7 @@ class RequestModel {
       required this.weight,
       required this.height,
       required this.width,
+        required this.rate,
       required this.depth,
       required this.itemPrice,
       required this.userToken,
@@ -72,6 +74,7 @@ class RequestModel {
       "userName": userName,
       'postId': postId,
       'userId': userId,
+      'rate': rate,
       'description': description,
       'date': date.toIso8601String(),
       'status': status,
@@ -108,6 +111,7 @@ class RequestModel {
         weight: map['weight'] as double,
         height: map['height'] as double,
         width: map['width'] as double,
+        rate: map['rate'] as double,
         depth: map['depth'] as double,
         itemPrice: map['itemPrice'] as double,
         extraSize: map['extraSize'] as double,

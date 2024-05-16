@@ -79,7 +79,8 @@ class SignupCubit extends Cubit<SignupStates> {
         country: countryController.text,
         idImage: idImage,
         personalImage: personalImage,
-        userToken: userToken!);
+        userToken: userToken!,
+        rate: 5.0);
     firestore
         .collection("users")
         .doc(userModel.userId)

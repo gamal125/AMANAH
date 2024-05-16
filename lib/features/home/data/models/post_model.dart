@@ -16,6 +16,7 @@ class PostModel {
   double hieght;
   double width;
   double depth;
+  double rate;
   String recommendedItemsToShip;
   double basePrice;
   String userName;
@@ -44,6 +45,7 @@ class PostModel {
       required this.userPhone,
       required this.recommendedItemsToShip,
       required this.basePrice,
+        required this.rate,
       required this.createdAt,
       this.others = ''});
 
@@ -66,6 +68,7 @@ class PostModel {
       "userPhone" : userPhone,
       'hieght': hieght,
       'width': width,
+      'rate': rate,
       'recommendedItemsToShip': recommendedItemsToShip,
       'basePrice': basePrice,
       "travelDate": travelDate,
@@ -95,6 +98,7 @@ class PostModel {
       availableWeight: map['availableWeight'] as double,
       hieght: map['hieght'] as double,
       depth: map['depth'] as double,
+      rate: map['rate'] as double,
       width: map['width'] as double,
       others: map['others'],
       recommendedItemsToShip: map['recommendedItemsToShip'] as String,

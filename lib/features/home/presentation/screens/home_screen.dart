@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
     GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     TextEditingController controller = TextEditingController();
     return BlocProvider(
-      create: (context) => PostCubit()..getPostsByType("Food"),
+      create: (context) => PostCubit()..getAllPostsByType(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -78,6 +78,12 @@ class HomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               GestureDetector(
+                                onTap: () => postCubit.getAllPostsByType(),
+                                child: const CollectionWidget(
+                                    imagePath: "assets/icons/select.png",
+                                    title: "All"),
+                              ),
+                              GestureDetector(
                                 onTap: () => postCubit.getPostsByType("Food"),
                                 child: const CollectionWidget(
                                     imagePath: "assets/icons/food.png",
@@ -109,6 +115,13 @@ class HomeScreen extends StatelessWidget {
                                 child: const CollectionWidget(
                                     imagePath: "assets/icons/clothes.png",
                                     title: "Clothes"),
+                              ),
+                              GestureDetector(
+                                onTap: () =>
+                                    postCubit.getPostsByType("Clothes"),
+                                child: const CollectionWidget(
+                                    imagePath: "assets/icons/more.png",
+                                    title: "others"),
                               ),
                             ],
                           );

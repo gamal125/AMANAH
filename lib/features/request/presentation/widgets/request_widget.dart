@@ -39,6 +39,21 @@ class RequestWidget extends StatelessWidget {
                 },
                 child: Image.asset("assets/icons/phone_icon.png"))
           ]),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 3.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(5, (index) {
+                if (index < requestModel.rate.floor()) {
+                  return const Icon(Icons.star, color: Colors.orange,size: 18,);
+                } else if (index < requestModel.rate.ceil()) {
+                  return const Icon(Icons.star_half, color: Colors.orange,size: 18,);
+                } else {
+                  return const Icon(Icons.star_border, color: Colors.orange,size: 18,);
+                }
+              }),
+            ),
+          ),
           SizedBox(height: 20.h),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             const TxtStyle("Item", 18, fontWeight: FontWeight.bold),

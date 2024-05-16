@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:amanah/core/errors/custom_exception.dart';
 import 'package:amanah/core/utils/functions/functions.dart';
 import 'package:amanah/features/auth/data/models/user_model.dart';
@@ -52,7 +54,8 @@ class PostCubit extends Cubit<PostStates> {
     "Toys",
     "Electronics",
     "Cosmetics",
-    "Clothing"
+    "Clothing",
+    "others"
   ];
   String selectedCollection = "Food";
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -96,7 +99,7 @@ class PostCubit extends Cubit<PostStates> {
         depth: double.parse(depthController.text),
         recommendedItemsToShip: selectedCollection,
         others: othersController.text,
-        basePrice: double.parse(basePriceController.text));
+        basePrice: double.parse(basePriceController.text), rate:userModel.rate);
     firestore
         .collection("posts")
         .doc(postId)
@@ -141,7 +144,69 @@ class PostCubit extends Cubit<PostStates> {
       emit(PostErrorState(e.toString()));
     }
   }
+  Future getAllPostsByType() async {
 
+    newest = !newest;
+    emit(PostLoadingState());
+    try {
+      List<PostModel> posts = [];
+      QuerySnapshot query = await firestore
+          .collection("posts").get();
+
+      if (query.docs.isNotEmpty) {
+        query.docs.map<List<PostModel>>((e) {
+          final data = e.data() as Map<String, dynamic>;
+
+          final PostModel postModel = PostModel.fromMap(data);
+          posts.add(postModel);
+          return posts;
+        }).toList();
+        newest
+            ? posts.sort((a, b) => b.createdAt.compareTo(a.createdAt))
+            : posts.sort((b, a) => b.createdAt.compareTo(a.createdAt));
+
+        emit(GetPostsSuccessState(posts: posts));
+      } else {
+        emit(NoPostsState("There's No Posts Yet"));
+      }
+    } catch (e) {
+      emit(PostErrorState(e.toString()));
+    }
+  }
+  Future deletePost(String myId,String postId)async{
+    FirebaseFirestore.instance.collection('posts').doc(postId).delete().then((value){
+      getMyAllPostsByType(myId);
+    });
+  }
+  Future getMyAllPostsByType(String id) async {
+
+    newest = !newest;
+    emit(MyPostLoadingState());
+    try {
+      List<PostModel> posts = [];
+      List<String> idPosts = [];
+      QuerySnapshot query = await firestore
+          .collection("posts").where("userId", isEqualTo: id).get();
+
+      if (query.docs.isNotEmpty) {
+        query.docs.map<List<PostModel>>((e) {
+          final data = e.data() as Map<String, dynamic>;
+
+          final PostModel postModel = PostModel.fromMap(data);
+          posts.add(postModel);
+          idPosts.add(e.id);
+          return posts;
+        }).toList();
+
+
+        emit(GetMyPostsSuccessState(posts: posts, idPosts: idPosts));
+      } else {
+        emit(NoPostsState("There's No Posts Yet"));
+      }
+    } catch (e) {
+      emit(PostErrorState(e.toString()));
+    }
+  }
   //control AM PM
   void changeTime({bool arrival = false}) {
     isAm = !isAm;

@@ -12,6 +12,7 @@ class UserModel {
   bool isShipping;
   String userToken;
   String personalImage;
+  double rate=0.0;
 
   UserModel({
     required this.userId,
@@ -27,6 +28,7 @@ class UserModel {
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
     required this.userToken,
     required this.personalImage,
+    required this.rate,
     this.isShipping = false,
   });
 
@@ -46,7 +48,9 @@ class UserModel {
         profileImage: json['profileImage'] as String,
 
         personalImage: json['personalImage'] as String,
-        userToken: json['userToken'] as String);
+        userToken: json['userToken'] as String,
+        rate: json['rate'] as double
+    );
   }
 
   //to map
@@ -64,7 +68,8 @@ class UserModel {
       "profileImage": profileImage,
       "isShipping": isShipping,
       'userToken': userToken,
-      'personalImage': personalImage
+      'personalImage': personalImage,
+      'rate': rate
     };
   }
 }
